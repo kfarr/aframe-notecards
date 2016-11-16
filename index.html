@@ -11,8 +11,12 @@
     <script src="components/grab.js"></script>
     <script src="components/ground.js"></script>
     <script src="shaders/skyGradient.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
   </head>
   <body>
+
     <a-scene fog="color: #bc483e; near: 0; far: 65;">
       <a-assets>
         <img id="notecard-36" src="images/Notecard-36-2017.png">
@@ -20,7 +24,6 @@
         <img id="notecard-57" src="images/Notecard-57-2017.png">
         <img id="notecard-73" src="images/Notecard-73-2017.png">
         <img id="notecard-blank" src="images/notecard-blank.png">
-
 
         <a-mixin id="card"
                  geometry="primitive: plane; height: 0.20; width: 0.30"
@@ -43,22 +46,47 @@
       <a-entity hand-controls="right" aabb-collider="objects: .cube, .card;" grab></a-entity>
 
       <!-- A-Frame cubes -->
-      <a-entity position="0 0 -1">
+      <a-entity class="card-entity" position="0 0 -1">
 
+<!--
         <a-entity class="card" mixin="card" material="src: #notecard-36" position="0 1.65 0"></a-entity>
         <a-entity class="card" mixin="card" material="src: #notecard-41" position="0.30 1.65 0"></a-entity>
         <a-entity class="card" mixin="card" material="src: #notecard-57" position="-0.30 1.65 0"></a-entity>
         <a-entity class="card" mixin="card" material="src: #notecard-73" position="0.60 1.65 0"></a-entity>
 
         <a-entity class="card" mixin="card" material="src: #notecard-blank" position="-0.60 1.65 0">
-          <a-entity position="-0.14 -0.01 0.00001" scale="0.08 0.08 0.08" bmfont-text="width: 800; lineHeight: 42; color: black; mode: pre; text:
-To see a World in a Grain of Sand
-And a Heaven in a Wild Flower
-Hold Infinity in the palm of your hand
-And Eternity in an hour.
-               - William Blake">
-          </a-entity>
+          <a-entity position="-0.14 -0.01 0.00001" scale="0.08 0.08 0.08" bmfont-text="width: 800; lineHeight: 42; color: black; mode: pre; text: To see a World in a Grain of Sand And a Heaven in a Wild Flower Hold Infinity in the palm of your hand And Eternity in an hour. - William Blake"></a-entity>
         </a-entity>
+      -->
+
+        <script>
+
+        // ID of the Google Spreadsheet
+        var spreadsheetURL = "https://docs.google.com/spreadsheets/d/1FdjSF9zsBiOJYf40hqDXRfEbqZ7nveMP0t6nN86rLNU/edit?usp=sharing"
+        // Make sure it is public or set to Anyone with link can view
+
+        //    function getIdFromUrl(url) { return url.match(/[-\w]{25,}/); }
+        var spreadsheetID = spreadsheetURL.match(/[-\w]{25,}/);
+
+        var url = "https://spreadsheets.google.com/feeds/list/" + spreadsheetID + "/od6/public/values?alt=json";
+
+        $.getJSON(url, function(data) {
+
+         var entry = data.feed.entry;
+
+         $(entry).each(function(){
+
+           var pos_x = Math.random() * 2 - 1;
+           var pos_y = Math.random() + 1;
+           var pos_z = Math.random() * 2 - 1;
+
+           // Column name should be "idea"
+           $('.card-entity').prepend('<a-entity class="card" mixin="card" material="src: #notecard-blank" position="'+pos_x+' '+pos_y+' '+pos_z+'"><a-entity position="-0.14 -0.01 0.00001" scale="0.08 0.08 0.08" bmfont-text="width: 760; lineHeight: 42; color: black; text: '+this.gsx$idea.$t+'"></a-entity></a-entity>');
+         });
+
+        });
+
+        </script>
 
         <a-entity class="cube" mixin="cube" position="0.60 0.75 0"></a-entity>
         <a-entity class="cube" mixin="cube" position="0.60 0.45 0"></a-entity>
