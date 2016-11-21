@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>A-Frame VR Notecards</title>
     <meta name="description" content="VR Notecards – A-Frame">
-    <script src="https://aframe.io/releases/0.3.1/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/0.3.2/aframe.min.js"></script>
     <script src="https://rawgit.com/bryik/aframe-bmfont-text-component/master/dist/aframe-bmfont-text-component.min.js"></script>
 
     <script src="components/aabb-collider.js"></script>
@@ -19,15 +19,11 @@
 
     <a-scene fog="color: #bc483e; near: 0; far: 65;">
       <a-assets>
-        <img id="notecard-36" src="images/Notecard-36-2017.png">
-        <img id="notecard-41" src="images/Notecard-41-2017.png">
-        <img id="notecard-57" src="images/Notecard-57-2017.png">
-        <img id="notecard-73" src="images/Notecard-73-2017.png">
         <img id="notecard-blank" src="images/notecard-blank.png">
 
         <a-mixin id="card"
                  geometry="primitive: plane; height: 0.20; width: 0.30"
-                 material="color: #AAAAF20; side: double"></a-mixin>
+                 material="src: #notecard-blank; side: double"></a-mixin>
         <a-mixin id="card-collided"
                  material="color: #F2E646;"></a-mixin>
         <a-mixin id="card-grabbed"
@@ -42,22 +38,11 @@
                  material="color: #F2E646;"></a-mixin>
       </a-assets>
       <!-- Hands -->
-      <a-entity hand-controls="left" aabb-collider="objects: .card;" grab></a-entity>
-      <a-entity hand-controls="right" aabb-collider="objects: .cube, .card;" grab></a-entity>
+      <a-entity class="lefthand" hand-controls="left" aabb-collider="objects: .card;" grab></a-entity>
+      <a-entity class="righthand" hand-controls="right" aabb-collider="objects: .cube, .card;" grab></a-entity>
 
       <!-- A-Frame cubes -->
       <a-entity class="card-entity" position="0 0 -1">
-
-<!--
-        <a-entity class="card" mixin="card" material="src: #notecard-36" position="0 1.65 0"></a-entity>
-        <a-entity class="card" mixin="card" material="src: #notecard-41" position="0.30 1.65 0"></a-entity>
-        <a-entity class="card" mixin="card" material="src: #notecard-57" position="-0.30 1.65 0"></a-entity>
-        <a-entity class="card" mixin="card" material="src: #notecard-73" position="0.60 1.65 0"></a-entity>
-
-        <a-entity class="card" mixin="card" material="src: #notecard-blank" position="-0.60 1.65 0">
-          <a-entity position="-0.14 -0.01 0.00001" scale="0.08 0.08 0.08" bmfont-text="width: 800; lineHeight: 42; color: black; mode: pre; text: To see a World in a Grain of Sand And a Heaven in a Wild Flower Hold Infinity in the palm of your hand And Eternity in an hour. - William Blake"></a-entity>
-        </a-entity>
-      -->
 
         <script>
 
@@ -81,10 +66,15 @@
            var pos_z = Math.random() * 2 - 1;
 
            // Column name should be "idea"
-           $('.card-entity').prepend('<a-entity class="card" mixin="card" material="src: #notecard-blank" position="'+pos_x+' '+pos_y+' '+pos_z+'"><a-entity position="-0.14 -0.01 0.00001" scale="0.08 0.08 0.08" bmfont-text="width: 760; lineHeight: 42; color: black; text: '+this.gsx$idea.$t+'"></a-entity></a-entity>');
+           $('.card-entity').prepend('<a-entity class="card" mixin="card" position="'+pos_x+' '+pos_y+' '+pos_z+'"><a-entity position="-0.14 -0.01 0.00001" scale="0.08 0.08 0.08" bmfont-text="width: 760; lineHeight: 42; color: black; text: '+this.gsx$idea.$t+'"></a-entity></a-entity>');
          });
 
         });
+        console.log($('.righthand')[0].components);
+
+        // run these two lines in console when page loaded, then you can grab cards
+        $('.lefthand')[0].components['aabb-collider'].update();
+        $('.righthand')[0].components['aabb-collider'].update();
 
         </script>
 

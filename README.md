@@ -22,11 +22,9 @@ This is an experimental app to solve my own problem. As a product manager we hav
 
 ## Known issues / to-do items:
 * Add ability to create "theme labels" using https://github.com/ngokevin/kframe/tree/master/components/text. During the feedback parsing process it can be helpful to place the notecards around the common theme labels.
-* The aframe text component (https://github.com/bryik/aframe-bmfont-text-component) looks blurry and aliased with small text in the distance, such as this very use case. Rendering text to an image texture results in higher quality text but is not nearly as easy as using the text component when using dynamic sources such as Google Sheets. The "real" solution is to improve the quality of the BMFont a-frame component. It may be possible to "re-render" a font with settings optimized for viewing from a distance or to improve the BMFont shader. More reading on this topic:
-** https://github.com/Jam3/three-bmfont-text
-** https://github.com/Jam3/three-bmfont-text/issues/1
+* The aframe text component (https://github.com/bryik/aframe-bmfont-text-component) looks blurry and aliased with small text in the distance, such as this very use case. Rendering text to an image texture results in higher quality text but is not nearly as easy as using the text component when using dynamic sources such as Google Sheets. The "real" solution is to improve the quality of the BMFont a-frame component. It may be possible to "re-render" a font with settings optimized for viewing from a distance or to improve the BMFont shader. More reading on this topic: ** https://github.com/Jam3/three-bmfont-text
+** https://github.com/Jam3/msdf-bmfont
 ** https://threejs.org/docs/api/textures/Texture.html > try alternate texture minFilter
-** https://github.com/bryik/aframe-bmfont-text-component/blob/master/index.js
 ** https://github.com/bryik/aframe-bmfont-text-component/blob/master/lib/shaders/sdf.js
 
 * My javascript sucks but it gets the job done
