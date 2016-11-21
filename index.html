@@ -81,10 +81,11 @@
       <a-entity class="card-entity" position="0 0 -1">
 
         <script>
+        function loadCards(spreadsheetURL) {
 
         // ID of the Google Spreadsheet
-        var spreadsheetURL = "https://docs.google.com/spreadsheets/d/1FdjSF9zsBiOJYf40hqDXRfEbqZ7nveMP0t6nN86rLNU/edit?usp=sharing"
         // Make sure it is public or set to Anyone with link can view
+        // var spreadsheetURL = "https://docs.google.com/spreadsheets/d/1FdjSF9zsBiOJYf40hqDXRfEbqZ7nveMP0t6nN86rLNU/edit?usp=sharing"
 
         //    function getIdFromUrl(url) { return url.match(/[-\w]{25,}/); }
         var spreadsheetID = spreadsheetURL.match(/[-\w]{25,}/);
@@ -106,6 +107,7 @@
          });
 
         });
+      };
         console.log($('.righthand')[0].components);
 
         // run these two lines in console when page loaded, then you can grab cards
@@ -139,19 +141,24 @@
 
     <div id="bloc" class="intro-overlay">
           <h4>A-Frame Notecards</h4>
-          <p>This app takes a Google Sheet with a column named "Idea" and creates virtual notecards randomly placed in a scene. Using the Vive controls you can grab and move the cards around to organize them around common themes. You can still use this without a Vive, but you won't be able to move the cards around.</p>
+          <p>This app takes a <a href="https://docs.google.com/spreadsheets/d/1FdjSF9zsBiOJYf40hqDXRfEbqZ7nveMP0t6nN86rLNU/edit#gid=0">Google Sheet</a> with a column named "Idea" and creates virtual notecards randomly placed in a scene. Using the Vive controls you can grab and move the cards around to organize them around common themes. You can still use this without a Vive, use W A S D keyboard controls to move around but you cannot grab cards.</p>
+          <p><input id="urlInput" class="form-control" value="https://docs.google.com/spreadsheets/d/1FdjSF9zsBiOJYf40hqDXRfEbqZ7nveMP0t6nN86rLNU/edit?usp=sharing" type="text"></p>
+          <p><a onclick="loadButton()" class="btn btn-success">(1) Load Cards from Sheet</a></p>
+          <p><a onclick="hide()" class="btn btn-success">(2) Update Collider and Close</a></p>
 
-          <div><a onclick="hide()" class="btn btn-success">Update Collider</a></div>
     </div>
 
     <a onclick="show()"><div class="menu-overlay btn btn-outline-secondary"></div></a>
 
     <script type="text/javascript">
-    function hide() {
-              $("#bloc").removeClass('intro-overlay');
+          function hide() {
               $('.lefthand')[0].components['aabb-collider'].update();
               $('.righthand')[0].components['aabb-collider'].update();
               console.log('ran update() on aabb-collider component');
+              $("#bloc").removeClass('intro-overlay');
+          }
+          function loadButton() {
+            loadCards($("#urlInput")[0].value);
           }
           function show() {
              $("#bloc").toggleClass('intro-overlay');
