@@ -33,6 +33,7 @@ This app takes a Google Sheet with a column named "Idea" and creates virtual not
 * Would be nice to save the location of the cards for future sessions
 * Would be nice to have collaboration features to work remotely with a colleague
 * If we have "theme labels" it'd be cool to retroactively update the Google Sheet so that each Idea row has a new column "Theme" populated by the theme label with the closet proximity to the notecard. Then your work in VR can update the sheet itself.
+* the code is very ugly
 
 DONE
 * UI to allow for end-user to copy/paste google sheet URL before entering VR mode
